@@ -3,6 +3,7 @@ package com.santander.cardspending.resource;
 import com.santander.cardspending.domain.Launch;
 import com.santander.cardspending.services.LaunchService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
@@ -21,21 +22,18 @@ public class LaunchResource {
 
     @RequestMapping(value="/{id}",method=RequestMethod.GET)
     public ResponseEntity<?> find(@PathVariable UUID id){
-
         Launch object = service.find(id);
         return ResponseEntity.ok().body(object);
     }
 
     @RequestMapping(method=RequestMethod.GET)
-    public ResponseEntity<?> find(){
+    public ResponseEntity<?> findAll(){
         return ResponseEntity.ok().body(service.findAll());
     }
 
     @RequestMapping(method=RequestMethod.POST)
     public ResponseEntity<Launch> insert(@RequestBody Launch object){
         object = service.insert(object);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}").buildAndExpand(object.getId()).toUri();
-        return ResponseEntity.created(uri).body(object);
+        return ResponseEntity.status(HttpStatus.CREATED).body(object);
     }
 }

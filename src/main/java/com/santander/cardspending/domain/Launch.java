@@ -1,6 +1,7 @@
 package com.santander.cardspending.domain;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,6 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
+@Builder
 @Entity
 public class Launch implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -25,6 +27,5 @@ public class Launch implements Serializable {
     private LocalDateTime registerDate;
     private BigDecimal value;
     private String tags;
-
 
 }
