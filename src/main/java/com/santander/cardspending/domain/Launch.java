@@ -1,19 +1,16 @@
 package com.santander.cardspending.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
 @Entity
@@ -21,15 +18,13 @@ public class Launch implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
     private String name;
     private String description;
-    private Timestamp register;
-    private Double value;
+    private LocalDateTime registerDate;
+    private BigDecimal value;
     private String tags;
 
-    public Launch(){
-    }
 
 }
