@@ -1,30 +1,35 @@
 package com.santander.cardspending.resource;
 
 import com.santander.cardspending.domain.Launch;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import com.santander.cardspending.services.LaunchService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.sql.Timestamp;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
+import java.net.URI;
+
 
 @RestController
 @RequestMapping(value="/launches")
 public class LaunchResource {
 
-    @RequestMapping(method=RequestMethod.GET)
-    public List<Launch> listar(){
+    @Autowired
+    private LaunchService service;
 
-        Launch launch1 = new Launch(1,"Pedro","Almoço",null,10.0,"Tag 1 almoço");
-        Launch launch2 = new Launch(2,"Nicole","Jantar",null,20.0,"Tag 2 jantar");
+    @RequestMapping(value="/{id}",method=RequestMethod.GET)
+    public ResponseEntity<?> find(@PathVariable Integer id){
 
-        List<Launch> lista = new ArrayList<>();
-        lista.add(launch1);
-        lista.add(launch2);
+        Launch object = service.find(id);
+        return ResponseEntity.ok().body(object);
+    }
 
-
-        return lista;
+    @RequestMapping(method=RequestMethod.POST)
+    public ResponseEntity<Void> insert(@RequestBody Launch object){
+        object = service.insert(object);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(object.getId()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 }
