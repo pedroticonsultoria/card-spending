@@ -6,7 +6,10 @@ import com.santander.cardspending.repositories.LaunchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class LaunchService {
@@ -14,7 +17,7 @@ public class LaunchService {
     @Autowired
     private LaunchRepository repo;
 
-    public Launch find(Integer id){
+    public Launch find(UUID id){
         Optional<Launch> object = repo.findById(id);
         if (object.isEmpty()){
             throw new ObjectNotFoundException("Objeto não encntrado! Id:" + id
@@ -25,6 +28,11 @@ public class LaunchService {
 
     public Launch insert(Launch object){
         object.setId(null);
+        object.setRegisterDate(LocalDateTime.now());
         return repo.save(object);
+    }
+
+    public List<Launch> findAll() {
+        return repo.findAll();
     }
 }
