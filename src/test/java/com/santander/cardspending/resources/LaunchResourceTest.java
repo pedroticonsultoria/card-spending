@@ -1,7 +1,6 @@
-package com.santander.cardspending.resource;
+package com.santander.cardspending.resources;
 
 import com.santander.cardspending.domain.Launch;
-import com.santander.cardspending.exceptions.ObjectNotFoundException;
 import com.santander.cardspending.services.LaunchService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,7 +11,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -40,7 +38,7 @@ public class LaunchResourceTest {
                 .tags("Alimentação")
                 .build();
         when(launchService.find(any(UUID.class))).thenReturn(launch);
-        assertNotNull(launchResource.find(UUID.randomUUID()));
+        assertNotNull(launchResource.findbyId(UUID.randomUUID()));
     }
 
 

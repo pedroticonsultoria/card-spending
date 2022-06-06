@@ -1,4 +1,4 @@
-package com.santander.cardspending.resource.exception;
+package com.santander.cardspending.resources.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

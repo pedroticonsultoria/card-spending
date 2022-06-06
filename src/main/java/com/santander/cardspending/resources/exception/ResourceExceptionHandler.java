@@ -1,4 +1,4 @@
-package com.santander.cardspending.resource.exception;
+package com.santander.cardspending.resources.exception;
 
 import com.santander.cardspending.exceptions.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
